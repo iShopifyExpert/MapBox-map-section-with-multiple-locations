@@ -12,7 +12,7 @@
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/light-v10',
-    center: [-63.517, -16.457],
+    center: [{% for block in section.blocks %}{%- if forloop.first -%}{{block.settings.latitude}}, {{block.settings.longitude}}{%- endif -%}{% endfor %}],
     zoom: 5
   });
   
