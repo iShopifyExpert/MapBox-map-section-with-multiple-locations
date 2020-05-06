@@ -18,18 +18,7 @@
   
   var geojson = {
     'type': 'FeatureCollection',
-    'features': [
-      { {% for block in section.blocks %}
-        'type': 'Feature',
-        'properties': {
-          'message': '{{block.settings.address}}', 'logo': '{{block.settings.logo}}'
-        },
-        'geometry': {
-          'type': 'Point',
-          'coordinates': [{{block.settings.latitude}}, {{block.settings.longitude}}]
-        }
-      } {%- if forloop.last -%}{%- else -%},{%- endif -%} {% endfor %}
-    ]
+    'features': [ {% for block in section.blocks %} { 'type': 'Feature', 'properties': { 'message': '{{block.settings.address}}', 'logo': '{{block.settings.logo | img_url}}' }, 'geometry': { 'type': 'Point', 'coordinates': [{{block.settings.latitude}}, {{block.settings.longitude}}] } } {%- if forloop.last -%}{%- else -%},{%- endif -%}{% endfor %} ]
   };
 
   // add markers to map
@@ -50,6 +39,7 @@
 {
   "name": "Section Map",
   "class": "js-section__home-map",
+  "max_blocks": 5,
   "settings": [
     {
       "type": "checkbox",
